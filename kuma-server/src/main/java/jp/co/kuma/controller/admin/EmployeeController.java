@@ -1,6 +1,7 @@
 package jp.co.kuma.controller.admin;
 
 import jp.co.kuma.constant.JwtClaimsConstant;
+import jp.co.kuma.dto.EmployeeDTO;
 import jp.co.kuma.dto.EmployeeLoginDTO;
 import jp.co.kuma.entity.Employee;
 import jp.co.kuma.properties.JwtProperties;
@@ -65,6 +66,12 @@ public class EmployeeController {
     @PostMapping("/logout")
     public Result<String> logout() {
         
+        return Result.success();
+    }
+    
+    @PostMapping
+    public Result<String> create(@RequestBody EmployeeDTO employeeDTO) {
+        employeeService.create(employeeDTO);
         return Result.success();
     }
     

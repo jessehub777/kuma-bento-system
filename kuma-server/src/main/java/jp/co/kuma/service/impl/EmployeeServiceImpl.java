@@ -1,7 +1,9 @@
 package jp.co.kuma.service.impl;
 
 import jp.co.kuma.constant.MessageConstant;
+import jp.co.kuma.constant.PasswordConstant;
 import jp.co.kuma.constant.StatusConstant;
+import jp.co.kuma.dto.EmployeeDTO;
 import jp.co.kuma.dto.EmployeeLoginDTO;
 import jp.co.kuma.entity.Employee;
 import jp.co.kuma.exception.AccountLockedException;
@@ -11,6 +13,7 @@ import jp.co.kuma.mapper.EmployeeMapper;
 import jp.co.kuma.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
@@ -52,6 +55,21 @@ public class EmployeeServiceImpl implements EmployeeService {
         
         //3、ログイン成功　エンティティを返す
         return employee;
+    }
+    
+    /**
+     * 社員新規作成
+     */
+    public void create(EmployeeDTO employeeDTO) {
+        Employee employee = new Employee();
+        //2つの異なるエンティティ間の変換を簡素化するために、オブジェクトのプロパティコピーを使用する。
+        BeanUtils.copyProperties(employeeDTO, employee);
+        employee.setStatus(StatusConstant.ENABLE);
+        //　パスワードはMD5で暗号化されているため、デフォルトパスワードも同様に暗号化する。
+        //　デフォルトパスワードは、PasswordConstantクラスで定義されている。
+        employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
+        
+        employeeMapper.create(employee);
     }
     
 }
