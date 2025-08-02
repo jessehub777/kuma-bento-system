@@ -1,0 +1,63 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: dev
+  main:
+    allow-circular-references: true
+  datasource:
+    url: jdbc:mysql://${kuma.datasource.host}:${kuma.datasource.port}/${kuma.datasource.database}
+    username: ${kuma.datasource.username}
+    password: ${kuma.datasource.password}
+    driver-class-name: ${kuma.datasource.driver-class-name}
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      connection-timeout: 30000
+
+  data:
+    redis:
+      host: ${redis.host}
+      port: ${redis.port}
+      password: ${redis.password}
+      database: ${redis.database}
+
+
+mybatis:
+  # mapper設定ファイル
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: jp.co.kuma.entity
+  configuration:
+    # キャメルケースを有効にする。
+    map-underscore-to-camel-case: true
+
+logging:
+  level:
+    com:
+      kuma:
+        mapper: debug
+        service: info
+        controller: info
+
+kuma:
+  jwt:
+    # JWT署名の暗号化に使用する秘密鍵を設定する
+    admin-secret-key: a-very-long-and-secure-secret-key-of-at-least-32-bytes!
+    # JWTの有効期限をミリ秒で設定する　7200000ミリ秒 = 2時間
+    admin-ttl: 7200000
+    # JWTのトークン名を設定する
+    admin-token-name: token
+
+    # JWT署名の暗号化に使用する秘密鍵を設定する
+    user-secret-key: ou-gei-shin-in-Japan-saitama-kumagaya-arscomputercollege!
+    #　JWTの有効期限をミリ秒で設定する　7200000ミリ秒 = 2時間
+    user-ttl: 7200000
+    #　JWTのトークン名を設定する
+    user-token-name: token
+
+minio:
+  endpoint: ${minio.endpoint}
+  access-key: ${minio.access-key}
+  secret-key: ${minio.secret-key}
+  bucket: ${minio.bucket}
