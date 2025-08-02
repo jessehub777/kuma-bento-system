@@ -9,15 +9,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
 
 @Configuration
 @Slf4j
 @RequiredArgsConstructor
-public class WebMvcConfiguration extends WebMvcConfigurationSupport {
+public class WebMvcConfiguration implements WebMvcConfigurer {
     
     private final JwtTokenAdminInterceptor jwtTokenAdminInterceptor;
     private final JwtTokenUserInterceptor jwtTokenUserInterceptor;
@@ -27,7 +26,8 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
      *
      * @param registry
      */
-    protected void addInterceptors(InterceptorRegistry registry) {
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
         log.info("カスタムインターセプター...");
         registry.addInterceptor(jwtTokenAdminInterceptor)
                 .addPathPatterns("/admin/**")
@@ -37,30 +37,24 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
                 .excludePathPatterns("/user/login");
     }
     
-    
-    /**
-     * 静的リソースのマッピングを設定
-     *
-     * @param registry
-     */
-    protected void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/doc.html").addResourceLocations("classpath:/META-INF/resources/");
-        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
-    }
-    
     /**
      * SpringMVCのメッセージコンバータを拡張
+     * springdoc-openapi の API ドキュメントには影響しないよう配慮
      *
      * @param converters
      */
-    protected void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
-        // 1. メッセージコンバータオブジェクトを作成
-        // 2. 変換するオブジェクトタイプを設定
-        // 3. 変換の文字セットを設定
-        // 4. メッセージコンバータをMVCフレームワークに追加
-        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-        converter.setObjectMapper(new JacksonObjectMapper());
-        converters.add(0, converter);
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        // Jackson コンバータを作成
+        MappingJackson2HttpMessageConverter jacksonConverter = new MappingJackson2HttpMessageConverter();
+        jacksonConverter.setObjectMapper(new JacksonObjectMapper());
         
+        // デフォルトの JSON コンバータを追加（springdoc 用）
+        MappingJackson2HttpMessageConverter defaultConverter = new MappingJackson2HttpMessageConverter();
+        
+        // カスタム Jackson コンバータを最初に追加
+        converters.add(jacksonConverter);
+        // デフォルトコンバータも追加
+        converters.add(defaultConverter);
     }
 }
