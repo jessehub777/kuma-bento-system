@@ -1,0 +1,57 @@
+package jp.co.kuma.service.impl;
+
+import jp.co.kuma.constant.MessageConstant;
+import jp.co.kuma.constant.StatusConstant;
+import jp.co.kuma.dto.EmployeeLoginDTO;
+import jp.co.kuma.entity.Employee;
+import jp.co.kuma.exception.AccountLockedException;
+import jp.co.kuma.exception.AccountNotFoundException;
+import jp.co.kuma.exception.PasswordErrorException;
+import jp.co.kuma.mapper.EmployeeMapper;
+import jp.co.kuma.service.EmployeeService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
+
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class EmployeeServiceImpl implements EmployeeService {
+    
+    private final EmployeeMapper employeeMapper;
+    
+    /**
+     * 社員ログイン処理
+     */
+    public Employee login(EmployeeLoginDTO employeeLoginDTO) {
+        String username = employeeLoginDTO.getUsername();
+        String password = employeeLoginDTO.getPassword();
+        
+        //1、usernameに基づいてdbのデータを検索する。
+        Employee employee = employeeMapper.getByUsername(username);
+        
+        //2、　存在チェック
+        if (employee == null) {
+            //アカウントが存在しない場合
+            throw new AccountNotFoundException(MessageConstant.ACCOUNT_NOT_FOUND);
+        }
+        
+        //2、　passwordチェック
+        //　passwordはMD5で暗号化されているため、入力されたpasswordも同様に暗号化する。
+        password = DigestUtils.md5DigestAsHex(password.getBytes());
+        if (!password.equals(employee.getPassword())) {
+            //　パスワードが間違っている場合
+            throw new PasswordErrorException(MessageConstant.PASSWORD_ERROR);
+        }
+        
+        if (employee.getStatus() == StatusConstant.DISABLE) {
+            //　アカウントがロックされている場合
+            throw new AccountLockedException(MessageConstant.ACCOUNT_LOCKED);
+        }
+        
+        //3、ログイン成功　エンティティを返す
+        return employee;
+    }
+    
+}
