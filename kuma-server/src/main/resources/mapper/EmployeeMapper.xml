@@ -28,8 +28,10 @@
             <if test="name != null and name != ''">name = #{name},</if>
             <if test="username != null and username != ''">username = #{username},</if>
             <if test="phone != null and phone != ''">phone = #{phone},</if>
-            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="status != null">status = #{status},</if>
             <if test="password != null and password != ''">password = #{password},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="updateUser != null">update_user = #{updateUser},</if>
         </set>
         WHERE id = #{id}
     </update>

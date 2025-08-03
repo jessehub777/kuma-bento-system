@@ -102,6 +102,12 @@ public class EmployeeController {
         return Result.success(pageResult);
     }
     
+    /**
+     * 社員を更新
+     *
+     * @param id 社員ID
+     * @return 成功メッセージ
+     */
     @PatchMapping("/{id}")
     public Result update(@PathVariable Long id, @RequestBody EmployeeDTO employeeDTO) {
         employeeDTO.setId(id);

@@ -34,12 +34,30 @@ public interface EmployeeMapper {
     @AutoFill(value = OperationType.INSERT)
     void create(Employee employee);
     
+    /**
+     * 社員の総数を取得
+     *
+     * @param name 社員名
+     * @return count
+     */
     int countByName(String name);
     
+    /**
+     * 社員のページングリストを取得
+     *
+     * @param offset   オフセット
+     * @param pageSize ページサイズ
+     * @param name     社員名
+     * @return 社員ページリスト
+     */
     List<EmployeePageVO> list(@Param("offset") int offset,
                               @Param("pageSize") int pageSize,
                               @Param("name") String name);
     
+    /**
+     * 社員の更新 自動的に更新ユーザーと更新時間を設定する
+     */
+    @AutoFill(value = OperationType.UPDATE)
     void update(Employee employee);
 }
 
