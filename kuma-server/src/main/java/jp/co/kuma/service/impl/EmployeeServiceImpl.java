@@ -115,4 +115,17 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeMapper.update(employee);
     }
     
+    /**
+     * 社員の詳細を取得
+     *
+     * @param id 社員ID
+     * @return 社員情報
+     */
+    public EmployeePageVO get(Long id) {
+        Employee employee = employeeMapper.get(id);
+        EmployeePageVO employeePageVO = new EmployeePageVO();
+        BeanUtils.copyProperties(employee, employeePageVO);
+        return employeePageVO;
+    }
+    
 }

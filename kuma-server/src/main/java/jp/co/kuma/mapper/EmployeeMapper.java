@@ -59,5 +59,14 @@ public interface EmployeeMapper {
      */
     @AutoFill(value = OperationType.UPDATE)
     void update(Employee employee);
+    
+    /**
+     * 社員の詳細を取得
+     *
+     * @param id 社員ID
+     * @return 社員情報
+     */
+    @Select("select * from employee where id = #{id}")
+    Employee get(Long id);
 }
 

@@ -42,5 +42,13 @@ public interface EmployeeService {
      * 社員の更新
      */
     void update(EmployeeDTO employeeDTO);
+    
+    /**
+     * 社員の詳細を取得
+     *
+     * @param id 社員ID
+     * @return 社員情報
+     */
+    EmployeePageVO get(Long id);
 }
 

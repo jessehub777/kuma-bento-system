@@ -114,5 +114,11 @@ public class EmployeeController {
         employeeService.update(employeeDTO);
         return Result.success();
     }
+    
+    @GetMapping("/{id}")
+    public Result<EmployeePageVO> get(@PathVariable Long id) {
+        EmployeePageVO employeePageVO = employeeService.get(id);
+        return Result.success(employeePageVO);
+    }
 }
 
