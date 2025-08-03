@@ -5,17 +5,17 @@ import jp.co.kuma.dto.EmployeeDTO;
 import jp.co.kuma.dto.EmployeeLoginDTO;
 import jp.co.kuma.entity.Employee;
 import jp.co.kuma.properties.JwtProperties;
+import jp.co.kuma.result.PageResult;
 import jp.co.kuma.result.Result;
 import jp.co.kuma.service.EmployeeService;
 import jp.co.kuma.utils.JwtUtil;
 import jp.co.kuma.vo.EmployeeLoginVO;
+import jp.co.kuma.vo.EmployeePageVO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -75,5 +75,25 @@ public class EmployeeController {
         return Result.success();
     }
     
+    /**
+     * 社員リストを取得
+     *
+     * @param page     ページ番号
+     * @param pageSize ページサイズ
+     * @param name     名前でフィルタリング
+     * @return 社員リスト
+     */
+    @GetMapping("page")
+    public Result<PageResult<EmployeePageVO>> list(@RequestParam int page, @RequestParam int pageSize, @RequestParam(required = false) String name) {
+        int offset = (page - 1) * pageSize;
+        
+        List<EmployeePageVO> list = employeeService.list(offset, pageSize, name);
+        int total = employeeService.count(name);
+        
+        // ページ結果を作成
+        PageResult<EmployeePageVO> pageResult = new PageResult<>(total,list);
 
+        return Result.success(pageResult);
+    }
 }
+

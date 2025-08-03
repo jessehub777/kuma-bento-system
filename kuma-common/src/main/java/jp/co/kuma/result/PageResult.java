@@ -13,10 +13,10 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PageResult implements Serializable {
+public class PageResult<T> implements Serializable {
     
     private long total; // 総レコード数
     
-    private List records; // 現在ページのデータ集合
+    private List<T> records; // 現在ページのデータ集合
     
 }

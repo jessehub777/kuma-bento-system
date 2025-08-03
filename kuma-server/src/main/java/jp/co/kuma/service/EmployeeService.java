@@ -3,6 +3,9 @@ package jp.co.kuma.service;
 import jp.co.kuma.dto.EmployeeDTO;
 import jp.co.kuma.dto.EmployeeLoginDTO;
 import jp.co.kuma.entity.Employee;
+import jp.co.kuma.vo.EmployeePageVO;
+
+import java.util.List;
 
 public interface EmployeeService {
     
@@ -22,4 +25,9 @@ public interface EmployeeService {
      */
     void create(EmployeeDTO employeeDTO);
     
+    
+    List<EmployeePageVO> list(int offset, int pageSize, String name);
+    
+    int count(String name);
 }
+

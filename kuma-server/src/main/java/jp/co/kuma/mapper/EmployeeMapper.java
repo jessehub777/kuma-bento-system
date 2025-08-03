@@ -3,15 +3,20 @@ package jp.co.kuma.mapper;
 import jp.co.kuma.annotation.AutoFill;
 import jp.co.kuma.entity.Employee;
 import jp.co.kuma.enumeration.OperationType;
+import jp.co.kuma.vo.EmployeePageVO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 @Mapper
 public interface EmployeeMapper {
-
+    
     /**
      * ユーザー名に基づいて社員を検索する
+     *
      * @param username
      * @return
      */
@@ -20,6 +25,7 @@ public interface EmployeeMapper {
     
     /**
      * 社員を新規作成する
+     *
      * @param employee
      * @return
      */
@@ -27,5 +33,11 @@ public interface EmployeeMapper {
             "values(#{name},#{username},#{password},#{phone},#{status},#{createTime},#{updateTime},#{createUser},#{updateUser})")
     @AutoFill(value = OperationType.INSERT)
     void create(Employee employee);
-
+    
+    int countByName(String name);
+    
+    List<EmployeePageVO> list(@Param("offset") int offset,
+                              @Param("pageSize") int pageSize,
+                              @Param("name") String name);
 }
+

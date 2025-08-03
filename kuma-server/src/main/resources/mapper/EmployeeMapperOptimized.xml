@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jp.co.kuma.mapper.EmployeeMapper">
+
+    <!-- MySQL 8+　OVER()関数を使って、1回のクエリでlistとcountを取得できる  -->
+    <!-- MySQL 8+　OVER()関数を使って、1回のクエリでlistとcountを取得できる  -->
+    <!-- MySQL 8+　OVER()関数を使って、1回のクエリでlistとcountを取得できる  -->
+    <!-- MySQL 8+　OVER()関数を使って、1回のクエリでlistとcountを取得できる  -->
+    <select id="listWithTotal" resultType="jp.co.kuma.vo.EmployeePageVO">
+        SELECT
+            id, name, username, phone, status, create_time, update_time,
+            COUNT(*) OVER() as total
+        FROM employee
+        <where>
+            <if test="name != null and name != ''">
+                AND name LIKE CONCAT('%', #{name}, '%')
+            </if>
+        </where>
+        ORDER BY create_time DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+</mapper>
+

@@ -11,11 +11,14 @@ import jp.co.kuma.exception.AccountNotFoundException;
 import jp.co.kuma.exception.PasswordErrorException;
 import jp.co.kuma.mapper.EmployeeMapper;
 import jp.co.kuma.service.EmployeeService;
+import jp.co.kuma.vo.EmployeePageVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+
+import java.util.List;
 
 @Slf4j
 @Service
@@ -70,6 +73,32 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
         
         employeeMapper.create(employee);
+    }
+    
+    /**
+     * 社員リストを取得
+     *
+     * @param offset   オフセット
+     * @param pageSize ページサイズ
+     * @param name     名前でフィルタリング
+     * @return 社員リスト
+     */
+    public List<EmployeePageVO> list(int offset, int pageSize, String name) {
+        List<EmployeePageVO> employees = employeeMapper.list(offset, pageSize, name);
+//        employees.forEach(employee -> {
+//            employee.setPassword(null);
+//        }); // パスワードを隠す
+        return employees;
+    }
+    
+    /**
+     * 社員リストを取得
+     *
+     * @param name 名前でフィルタリング
+     * @return count
+     */
+    public int count(String name) {
+        return employeeMapper.countByName(name);
     }
     
 }
