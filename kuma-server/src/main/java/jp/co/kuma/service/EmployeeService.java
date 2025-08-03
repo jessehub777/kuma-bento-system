@@ -26,8 +26,21 @@ public interface EmployeeService {
     void create(EmployeeDTO employeeDTO);
     
     
+    /**
+     * 社員のページングリストを取得
+     *
+     * @param offset   オフセット
+     * @param pageSize ページサイズ
+     * @param name     社員名
+     * @return 社員ページリスト
+     */
     List<EmployeePageVO> list(int offset, int pageSize, String name);
     
     int count(String name);
+    
+    /**
+     * 社員の更新
+     */
+    void update(EmployeeDTO employeeDTO);
 }
 

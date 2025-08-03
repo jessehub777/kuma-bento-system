@@ -69,6 +69,12 @@ public class EmployeeController {
         return Result.success();
     }
     
+    /**
+     * 社員新規作成
+     *
+     * @param employeeDTO 社員情報
+     * @return 成功メッセージ
+     */
     @PostMapping
     public Result<String> create(@RequestBody EmployeeDTO employeeDTO) {
         employeeService.create(employeeDTO);
@@ -91,9 +97,16 @@ public class EmployeeController {
         int total = employeeService.count(name);
         
         // ページ結果を作成
-        PageResult<EmployeePageVO> pageResult = new PageResult<>(total,list);
-
+        PageResult<EmployeePageVO> pageResult = new PageResult<>(total, list);
+        
         return Result.success(pageResult);
+    }
+    
+    @PatchMapping("/{id}")
+    public Result update(@PathVariable Long id, @RequestBody EmployeeDTO employeeDTO) {
+        employeeDTO.setId(id);
+        employeeService.update(employeeDTO);
+        return Result.success();
     }
 }
 

@@ -39,5 +39,7 @@ public interface EmployeeMapper {
     List<EmployeePageVO> list(@Param("offset") int offset,
                               @Param("pageSize") int pageSize,
                               @Param("name") String name);
+    
+    void update(Employee employee);
 }
 

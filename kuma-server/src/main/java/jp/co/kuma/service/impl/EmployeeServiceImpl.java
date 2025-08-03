@@ -101,4 +101,21 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeMapper.countByName(name);
     }
     
+    /**
+     * 社員の更新
+     */
+    public void update(EmployeeDTO employeeDTO) {
+        Employee employee = new Employee();
+        //2つの異なるエンティティ間の変換を簡素化するために、オブジェクトのプロパティコピーを使用する。
+        BeanUtils.copyProperties(employeeDTO, employee);
+        
+        // パスワードが更新される場合、MD5で暗号化する
+        if (employeeDTO.getPassword() != null && !employeeDTO.getPassword().isEmpty()) {
+            employee.setPassword(DigestUtils.md5DigestAsHex(employeeDTO.getPassword().getBytes()));
+        }
+        
+        //更新される場合、Entityを使った方がよい
+        employeeMapper.update(employee);
+    }
+    
 }
