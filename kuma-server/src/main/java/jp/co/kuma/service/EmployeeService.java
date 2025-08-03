@@ -2,6 +2,7 @@ package jp.co.kuma.service;
 
 import jp.co.kuma.dto.EmployeeDTO;
 import jp.co.kuma.dto.EmployeeLoginDTO;
+import jp.co.kuma.dto.PasswordEditDTO;
 import jp.co.kuma.entity.Employee;
 import jp.co.kuma.vo.EmployeePageVO;
 
@@ -50,5 +51,12 @@ public interface EmployeeService {
      * @return 社員情報
      */
     EmployeePageVO get(Long id);
+    
+    /**
+     * パスワード更新
+     *
+     * @param passwordEditDTO パスワード編集DTO
+     */
+    void updatePassword(PasswordEditDTO passwordEditDTO);
 }
 

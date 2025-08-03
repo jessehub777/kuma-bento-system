@@ -3,8 +3,10 @@ package jp.co.kuma.service.impl;
 import jp.co.kuma.constant.MessageConstant;
 import jp.co.kuma.constant.PasswordConstant;
 import jp.co.kuma.constant.StatusConstant;
+import jp.co.kuma.context.BaseContext;
 import jp.co.kuma.dto.EmployeeDTO;
 import jp.co.kuma.dto.EmployeeLoginDTO;
+import jp.co.kuma.dto.PasswordEditDTO;
 import jp.co.kuma.entity.Employee;
 import jp.co.kuma.exception.AccountLockedException;
 import jp.co.kuma.exception.AccountNotFoundException;
@@ -126,6 +128,27 @@ public class EmployeeServiceImpl implements EmployeeService {
         EmployeePageVO employeePageVO = new EmployeePageVO();
         BeanUtils.copyProperties(employee, employeePageVO);
         return employeePageVO;
+    }
+    
+    /**
+     * パスワード更新
+     *
+     * @param passwordEditDTO パスワード編集DTO
+     */
+    public void updatePassword(PasswordEditDTO passwordEditDTO) {
+        // パスワードが更新される場合、MD5で暗号化する
+        String oldPassword = DigestUtils.md5DigestAsHex(passwordEditDTO.getOldPassword().getBytes());
+        String newPassword = DigestUtils.md5DigestAsHex(passwordEditDTO.getNewPassword().getBytes());
+        Long currentId = BaseContext.getCurrentId(); // ここでは、ThreadLocalから現在のユーザーIDを取得することを想定しています。
+        Employee employee = employeeMapper.get(currentId);
+        if (employee == null) {
+            throw new AccountNotFoundException(MessageConstant.ACCOUNT_NOT_FOUND);
+        }
+        if (!oldPassword.equals(employee.getPassword())) {
+            throw new PasswordErrorException(MessageConstant.PASSWORD_ERROR);
+        }
+        employee.setPassword(newPassword);
+        employeeMapper.update(employee);
     }
     
 }

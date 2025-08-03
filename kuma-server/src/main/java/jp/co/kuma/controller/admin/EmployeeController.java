@@ -3,6 +3,7 @@ package jp.co.kuma.controller.admin;
 import jp.co.kuma.constant.JwtClaimsConstant;
 import jp.co.kuma.dto.EmployeeDTO;
 import jp.co.kuma.dto.EmployeeLoginDTO;
+import jp.co.kuma.dto.PasswordEditDTO;
 import jp.co.kuma.entity.Employee;
 import jp.co.kuma.properties.JwtProperties;
 import jp.co.kuma.result.PageResult;
@@ -119,6 +120,13 @@ public class EmployeeController {
     public Result<EmployeePageVO> get(@PathVariable Long id) {
         EmployeePageVO employeePageVO = employeeService.get(id);
         return Result.success(employeePageVO);
+    }
+    
+    @PatchMapping("/editPassword")
+    public Result updatePassword(@RequestBody PasswordEditDTO passwordEditDTO) {
+        
+        employeeService.updatePassword(passwordEditDTO);
+        return Result.success();
     }
 }
 
