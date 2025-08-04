@@ -89,5 +89,12 @@ public class CategoryController {
     }
     
     
+    @GetMapping("/list")
+    public Result<List<Category>> list(Integer type) {
+        List<Category> list = categoryService.list(0, 10000, null, type);
+        return Result.success(list);
+    }
+    
+    
 }
 

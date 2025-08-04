@@ -7,7 +7,7 @@ spring:
   main:
     allow-circular-references: true
   datasource:
-    url: jdbc:mysql://${kuma.datasource.host}:${kuma.datasource.port}/${kuma.datasource.database}
+    url: jdbc:mysql://${kuma.datasource.host}:${kuma.datasource.port}/${kuma.datasource.database}?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Tokyo
     username: ${kuma.datasource.username}
     password: ${kuma.datasource.password}
     driver-class-name: ${kuma.datasource.driver-class-name}
