@@ -19,4 +19,7 @@ public class CategoryDTO implements Serializable {
     // 並び順
     private Integer sort;
     
+    // ステータス 0:無効 1:有効
+    private Integer status;
+    
 }
