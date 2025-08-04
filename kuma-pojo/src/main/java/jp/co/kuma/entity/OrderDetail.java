@@ -34,7 +34,7 @@ public class OrderDetail implements Serializable {
     private Long setmealId;
     
     // 味
-    private String dishFlavor;
+    private String dishSpec;
     
     // 数量
     private Integer number;

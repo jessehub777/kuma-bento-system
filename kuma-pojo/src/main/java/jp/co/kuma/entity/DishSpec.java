@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DishFlavor implements Serializable {
+public class DishSpec implements Serializable {
     
     private static final long serialVersionUID = 1L;
     

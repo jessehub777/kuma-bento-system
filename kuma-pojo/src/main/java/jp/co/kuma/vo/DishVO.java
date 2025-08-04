@@ -1,6 +1,6 @@
 package jp.co.kuma.vo;
 
-import jp.co.kuma.entity.DishFlavor;
+import jp.co.kuma.entity.DishSpec;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,7 +36,7 @@ public class DishVO implements Serializable {
     // カテゴリ名
     private String categoryName;
     // 料理に関連する味
-    private List<DishFlavor> flavors = new ArrayList<>();
+    private List<DishSpec> specs = new ArrayList<>();
     
     //private Integer copies;
 }

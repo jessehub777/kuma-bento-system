@@ -1,6 +1,6 @@
 package jp.co.kuma.dto;
 
-import jp.co.kuma.entity.DishFlavor;
+import jp.co.kuma.entity.DishSpec;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -25,6 +25,6 @@ public class DishDTO implements Serializable {
     // 0:販売停止 1:販売中
     private Integer status;
     // 味
-    private List<DishFlavor> flavors = new ArrayList<>();
+    private List<DishSpec> specs = new ArrayList<>();
     
 }

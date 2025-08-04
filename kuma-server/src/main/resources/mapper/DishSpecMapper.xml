@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jp.co.kuma.mapper.DishSpecMapper">
+
+    <insert id="insertSpecBatchByDishId">
+        insert into dish_spec (dish_id, name, value) values
+        <foreach collection="dishSpecs" item="item" separator=",">
+            (#{item.dishId}, #{item.name}, #{item.value})
+        </foreach>
+    </insert>
+
+    <update id="updateByDishId">
+        update dish_spec
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="value != null">value = #{value},</if>
+        </set>
+        where dish_id = #{dishId}
+    </update>
+
+    <delete id="deleteByDishIds">
+        delete from dish_spec where dish_id in
+        <foreach collection="dishIds" item="dishId" separator="," open="(" close=")">
+            #{dishId}
+        </foreach>
+    </delete>
+</mapper>
