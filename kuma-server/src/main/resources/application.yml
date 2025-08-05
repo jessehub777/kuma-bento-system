@@ -34,11 +34,12 @@ mybatis:
 
 logging:
   level:
-    com:
-      kuma:
-        mapper: debug
-        service: info
-        controller: info
+    jp:
+      co:
+        kuma:
+          mapper: debug
+          service: info
+          controller: info
 
 kuma:
   jwt:
