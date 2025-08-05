@@ -3,6 +3,7 @@ package jp.co.kuma.service.impl;
 import jp.co.kuma.constant.MessageConstant;
 import jp.co.kuma.constant.StatusConstant;
 import jp.co.kuma.dto.DishDTO;
+import jp.co.kuma.dto.DishPageQueryDTO;
 import jp.co.kuma.entity.Dish;
 import jp.co.kuma.entity.DishSpec;
 import jp.co.kuma.exception.BaseException;
@@ -150,19 +151,15 @@ public class DishServiceImpl implements DishService {
     /**
      * 料理のページングリストを取得
      *
-     * @param offset
-     * @param pageSize
-     * @param name
-     * @param categoryId
-     * @param status
+     * @param dishPageQueryDTO
      * @return
      */
-    public List<DishVO> listPage(int offset, int pageSize, String name, Integer categoryId, Integer status) {
-        return dishMapper.listPage(offset, pageSize, name, categoryId, status);
+    public List<DishVO> listPage(DishPageQueryDTO dishPageQueryDTO) {
+        return dishMapper.listPage(dishPageQueryDTO);
     }
     
-    public int count(String name, Integer categoryId, Integer status) {
-        return dishMapper.count(name, categoryId, status);
+    public int count(DishPageQueryDTO dishPageQueryDTO) {
+        return dishMapper.count(dishPageQueryDTO);
     }
     
     /**

@@ -9,6 +9,8 @@ public class DishPageQueryDTO implements Serializable {
     
     private int page;
     
+    private int offset;
+    
     private int pageSize;
     
     private String name;

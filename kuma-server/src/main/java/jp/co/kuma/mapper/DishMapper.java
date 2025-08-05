@@ -2,11 +2,11 @@ package jp.co.kuma.mapper;
 
 
 import jp.co.kuma.annotation.AutoFill;
+import jp.co.kuma.dto.DishPageQueryDTO;
 import jp.co.kuma.entity.Dish;
 import jp.co.kuma.enumeration.OperationType;
 import jp.co.kuma.vo.DishVO;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -37,7 +37,7 @@ public interface DishMapper {
     void status(Integer status, Integer id);
     
     
-    List<DishVO> listPage(@Param("offset") int offset, @Param("pageSize") int pageSize, @Param("name") String name, @Param("categoryId") Integer categoryId, @Param("status") Integer status);
+    List<DishVO> listPage(DishPageQueryDTO dishPageQueryDTO);
     
-    int count(String name, Integer categoryId, Integer status);
+    int count(DishPageQueryDTO dishPageQueryDTO);
 }

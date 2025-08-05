@@ -38,9 +38,10 @@ public class DishController {
     @GetMapping("/page")
     public Result<PageResult<DishVO>> listPage(DishPageQueryDTO dto) {
         int offset = (dto.getPage() - 1) * dto.getPageSize();
+        dto.setOffset(offset);
         
-        List<DishVO> list = dishService.listPage(offset, dto.getPageSize(), dto.getName(), dto.getCategoryId(), dto.getStatus());
-        int total = dishService.count(dto.getName(), dto.getCategoryId(), dto.getStatus());
+        List<DishVO> list = dishService.listPage(dto);
+        int total = dishService.count(dto);
         
         // ページ結果を作成
         PageResult<DishVO> pageResult = new PageResult<>(total, list);

@@ -2,6 +2,7 @@ package jp.co.kuma.service;
 
 
 import jp.co.kuma.dto.DishDTO;
+import jp.co.kuma.dto.DishPageQueryDTO;
 import jp.co.kuma.entity.Dish;
 import jp.co.kuma.vo.DishVO;
 
@@ -55,14 +56,10 @@ public interface DishService {
     /**
      * 料理のページングリストを取得
      *
-     * @param offset
-     * @param pageSize
-     * @param name
-     * @param categoryId
-     * @param status
+     * @param dishPageQueryDTO
      * @return
      */
-    List<DishVO> listPage(int offset, int pageSize, String name, Integer categoryId, Integer status);
+    List<DishVO> listPage(DishPageQueryDTO dishPageQueryDTO);
     
-    int count(String name, Integer categoryId, Integer status);
+    int count(DishPageQueryDTO dishPageQueryDTO);
 }
