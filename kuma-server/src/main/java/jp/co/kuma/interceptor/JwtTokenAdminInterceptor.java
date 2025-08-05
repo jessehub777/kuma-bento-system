@@ -44,14 +44,12 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor {
         
         //2、トークンを検証する
         try {
-            log.info("Admin-JWT検証:{}", token);
             Claims claims = JwtUtil.parseJWT(jwtProperties.getAdminSecretKey(), token);
             Long empId = Long.valueOf(claims.get(JwtClaimsConstant.EMP_ID).toString());
             
             // JWT内のトークンを逆解析して取得し、ThreadLocal.set(id) に保存する
             BaseContext.setCurrentId(empId);
             
-            log.info("社員id：{}", empId);
             //3、OK 、処理を通す
             return true;
         } catch (Exception ex) {

@@ -44,14 +44,12 @@ public class JwtTokenUserInterceptor implements HandlerInterceptor {
         
         //2、トークンを検証する
         try {
-            log.info("User-JWT検証:{}", token);
             Claims claims = JwtUtil.parseJWT(jwtProperties.getUserSecretKey(), token);
             Long userId = Long.valueOf(claims.get(JwtClaimsConstant.USER_ID).toString());
             
             // JWT内のトークンを逆解析して取得し、ThreadLocal.set(id) に保存する
             BaseContext.setCurrentId(userId);
             
-            log.info("ユーザーid：{}", userId);
             //3、OK 、処理を通す
             return true;
         } catch (Exception ex) {
