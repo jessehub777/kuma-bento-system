@@ -13,7 +13,6 @@ import jp.co.kuma.mapper.SetmealDishMapper;
 import jp.co.kuma.service.DishService;
 import jp.co.kuma.vo.DishVO;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +21,6 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class DishServiceImpl implements DishService {
     
     private final DishMapper dishMapper;
@@ -122,7 +120,6 @@ public class DishServiceImpl implements DishService {
         
         // Specの更新
         List<DishSpec> dishSpecs = dishDTO.getSpecs();
-        log.info("更新口味: {}", dishSpecs);
         if (dishSpecs != null && !dishSpecs.isEmpty()) {
             // 元Specを削除
             dishSpecMapper.deleteByDishId(dishDTO.getId());
