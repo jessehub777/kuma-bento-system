@@ -11,7 +11,7 @@
             #{setmealDish.name}, #{setmealDish.price}, #{setmealDish.copies})
         </foreach>
     </insert>
-    <delete id="deleteBySetmealIds">
+    <delete id="deleteBatch">
         delete from setmeal_dish where setmeal_id in
         <foreach item="item" collection="ids" open="(" separator="," close=")">
             #{item}

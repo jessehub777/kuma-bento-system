@@ -19,22 +19,14 @@ public interface SetmealDishMapper {
     public List<Long> getSetmealIdsByDishIds(List<Long> dishIds);
     
     /**
-     * 批量插入套餐下的菜品
+     * セットに含まれる料理を一括で追加する
      *
      * @param setmealDishList
      */
     void insertBatch(List<SetmealDish> setmealDishList);
     
-    
     /**
-     * 根据套餐id删除套餐和菜品的关联关系
-     *
-     * @param ids
-     */
-    void deleteBySetmealIds(List<Long> ids);
-    
-    /**
-     * 根据套餐id查询套餐和菜品的关联关系
+     * セットIDでセット料理を取得する
      *
      * @param setmealId
      * @return
@@ -42,4 +34,11 @@ public interface SetmealDishMapper {
     @Select("select * from setmeal_dish where setmeal_id = #{setmealId}")
     List<SetmealDish> getBySetmealId(Long setmealId);
     
+    
+    /**
+     * セット料理を削除する
+     *
+     * @param ids 削除するセット料理のIDリスト
+     */
+    void deleteBatch(List<Long> ids);
 }
