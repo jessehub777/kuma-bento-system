@@ -2,6 +2,7 @@ package jp.co.kuma.service;
 
 import jp.co.kuma.dto.CategoryDTO;
 import jp.co.kuma.entity.Category;
+import jp.co.kuma.vo.CategoryVO;
 
 import java.util.List;
 
@@ -62,6 +63,6 @@ public interface CategoryService {
      *
      * @return カテゴリーリスト
      */
-    List<Category> listAll(Integer type);
+    List<CategoryVO> listAll(Integer type);
 }
 

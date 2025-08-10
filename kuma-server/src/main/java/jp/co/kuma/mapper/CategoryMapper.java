@@ -3,6 +3,7 @@ package jp.co.kuma.mapper;
 import jp.co.kuma.annotation.AutoFill;
 import jp.co.kuma.entity.Category;
 import jp.co.kuma.enumeration.OperationType;
+import jp.co.kuma.vo.CategoryVO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -58,6 +59,6 @@ public interface CategoryMapper {
      *
      * @return 有効なカテゴリーリスト
      */
-    List<Category> listAll(Integer type);
+    List<CategoryVO> listAll(Integer type);
 }
 

@@ -1,8 +1,8 @@
 package jp.co.kuma.controller.user;
 
-import jp.co.kuma.entity.Category;
 import jp.co.kuma.result.Result;
 import jp.co.kuma.service.CategoryService;
+import jp.co.kuma.vo.CategoryVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,9 +18,15 @@ import java.util.List;
 public class CategoryController {
     private final CategoryService categoryService;
     
+    /**
+     * 分類type で分類リストを取得
+     *
+     * @param type 分类类型
+     * @return Result<List < CategoryVO>>
+     */
     @GetMapping("/list")
-    public Result<List<Category>> listAll(Integer type) {
-        List<Category> categories = categoryService.listAll(type);
+    public Result<List<CategoryVO>> listAll(Integer type) {
+        List<CategoryVO> categories = categoryService.listAll(type);
         return Result.success(categories);
     }
 }

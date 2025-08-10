@@ -6,6 +6,7 @@ import jp.co.kuma.entity.Category;
 import jp.co.kuma.result.PageResult;
 import jp.co.kuma.result.Result;
 import jp.co.kuma.service.CategoryService;
+import jp.co.kuma.vo.CategoryVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -90,8 +91,8 @@ public class CategoryController {
     
     
     @GetMapping("/list")
-    public Result<List<Category>> list(Integer type) {
-        List<Category> list = categoryService.listAll(type);
+    public Result<List<CategoryVO>> list(Integer type) {
+        List<CategoryVO> list = categoryService.listAll(type);
         return Result.success(list);
     }
     

@@ -5,6 +5,7 @@ import jp.co.kuma.dto.CategoryDTO;
 import jp.co.kuma.entity.Category;
 import jp.co.kuma.mapper.CategoryMapper;
 import jp.co.kuma.service.CategoryService;
+import jp.co.kuma.vo.CategoryVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -91,7 +92,7 @@ public class CategoryServiceImpl implements CategoryService {
      *
      * @return カテゴリーリスト
      */
-    public List<Category> listAll(Integer type) {
+    public List<CategoryVO> listAll(Integer type) {
         return categoryMapper.listAll(type);
     }
     
