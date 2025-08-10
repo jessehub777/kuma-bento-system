@@ -12,6 +12,7 @@ import jp.co.kuma.mapper.DishMapper;
 import jp.co.kuma.mapper.DishSpecMapper;
 import jp.co.kuma.mapper.SetmealDishMapper;
 import jp.co.kuma.service.DishService;
+import jp.co.kuma.vo.DishUserVO;
 import jp.co.kuma.vo.DishVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -177,7 +178,7 @@ public class DishServiceImpl implements DishService {
      *
      * @return
      */
-    public List<Dish> listAll(Long categoryId) {
+    public List<DishUserVO> listAll(Long categoryId) {
         return dishMapper.listAll(categoryId);
     }
 }

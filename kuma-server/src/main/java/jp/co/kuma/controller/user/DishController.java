@@ -1,8 +1,8 @@
 package jp.co.kuma.controller.user;
 
-import jp.co.kuma.entity.Dish;
 import jp.co.kuma.result.Result;
 import jp.co.kuma.service.DishService;
+import jp.co.kuma.vo.DishUserVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +19,15 @@ import java.util.List;
 public class DishController {
     private final DishService dishService;
     
+    /**
+     * 分類idで料理のリストを取得
+     *
+     * @param categoryId
+     * @return
+     */
     @GetMapping("/list")
-    public Result<List<Dish>> listAll(@RequestParam Long categoryId) {
-        List<Dish> dishes = dishService.listAll(categoryId);
+    public Result<List<DishUserVO>> listAll(@RequestParam Long categoryId) {
+        List<DishUserVO> dishes = dishService.listAll(categoryId);
         return Result.success(dishes);
     }
 }

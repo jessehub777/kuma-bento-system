@@ -5,6 +5,7 @@ import jp.co.kuma.annotation.AutoFill;
 import jp.co.kuma.dto.DishPageQueryDTO;
 import jp.co.kuma.entity.Dish;
 import jp.co.kuma.enumeration.OperationType;
+import jp.co.kuma.vo.DishUserVO;
 import jp.co.kuma.vo.DishVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -42,5 +43,5 @@ public interface DishMapper {
     int count(DishPageQueryDTO dishPageQueryDTO);
     
     @Select("select * from dish where category_id = #{categoryId} and status = 1")
-    List<Dish> listAll(Long categoryId);
+    List<DishUserVO> listAll(Long categoryId);
 }

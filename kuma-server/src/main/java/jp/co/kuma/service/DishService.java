@@ -4,6 +4,7 @@ package jp.co.kuma.service;
 import jp.co.kuma.dto.DishDTO;
 import jp.co.kuma.dto.DishPageQueryDTO;
 import jp.co.kuma.entity.Dish;
+import jp.co.kuma.vo.DishUserVO;
 import jp.co.kuma.vo.DishVO;
 
 import java.util.List;
@@ -64,9 +65,9 @@ public interface DishService {
     int count(DishPageQueryDTO dishPageQueryDTO);
     
     /**
-     * すべての料理を取得
+     * ユーザー側の料理のリーストを取得
      *
      * @return
      */
-    List<Dish> listAll(Long categoryId);
+    List<DishUserVO> listAll(Long categoryId);
 }
