@@ -62,4 +62,11 @@ public interface DishService {
     List<DishVO> listPage(DishPageQueryDTO dishPageQueryDTO);
     
     int count(DishPageQueryDTO dishPageQueryDTO);
+    
+    /**
+     * すべての料理を取得
+     *
+     * @return
+     */
+    List<Dish> listAll(Long categoryId);
 }

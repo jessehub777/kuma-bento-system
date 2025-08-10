@@ -171,4 +171,13 @@ public class DishServiceImpl implements DishService {
     public void status(Integer status, Integer id) {
         dishMapper.status(status, id);
     }
+    
+    /**
+     * すべての料理を取得
+     *
+     * @return
+     */
+    public List<Dish> listAll(Long categoryId) {
+        return dishMapper.listAll(categoryId);
+    }
 }

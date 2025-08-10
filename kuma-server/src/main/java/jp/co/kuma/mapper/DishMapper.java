@@ -40,4 +40,7 @@ public interface DishMapper {
     List<DishVO> listPage(DishPageQueryDTO dishPageQueryDTO);
     
     int count(DishPageQueryDTO dishPageQueryDTO);
+    
+    @Select("select * from dish where category_id = #{categoryId} and status = 1")
+    List<Dish> listAll(Long categoryId);
 }
