@@ -16,7 +16,7 @@ public interface CategoryService {
     void create(CategoryDTO categoryDTO);
     
     /**
-     * カテゴリーリストを取得
+     * カテゴリーリストを取得 -- ページング対応
      *
      * @param offset   オフセット
      * @param pageSize ページサイズ
@@ -24,7 +24,7 @@ public interface CategoryService {
      * @param type     タイプでフィルタリング
      * @return カテゴリーリスト
      */
-    List<Category> list(int offset, int pageSize, String name, Integer type);
+    List<Category> listPage(int offset, int pageSize, String name, Integer type);
     
     /**
      * カテゴリーリストの件数を取得
@@ -56,5 +56,12 @@ public interface CategoryService {
      * @param id カテゴリーID
      */
     void delete(Long id);
+    
+    /**
+     * カテゴリーリストを取得
+     *
+     * @return カテゴリーリスト
+     */
+    List<Category> listAll(Integer type);
 }
 

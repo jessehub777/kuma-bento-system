@@ -44,7 +44,7 @@ public class CategoryController {
     public Result<PageResult<Category>> list(CategoryPageQueryDTO dto) {
         int offset = (dto.getPage() - 1) * dto.getPageSize();
         
-        List<Category> list = categoryService.list(offset, dto.getPageSize(), dto.getName(), dto.getType());
+        List<Category> list = categoryService.listPage(offset, dto.getPageSize(), dto.getName(), dto.getType());
         int total = categoryService.count(dto.getName(), dto.getType());
         
         // ページ結果を作成
@@ -91,7 +91,7 @@ public class CategoryController {
     
     @GetMapping("/list")
     public Result<List<Category>> list(Integer type) {
-        List<Category> list = categoryService.list(0, 10000, null, type);
+        List<Category> list = categoryService.listAll(type);
         return Result.success(list);
     }
     

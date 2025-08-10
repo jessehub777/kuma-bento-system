@@ -42,8 +42,8 @@ public class CategoryServiceImpl implements CategoryService {
      * @param type     タイプでフィルタリング
      * @return カテゴリーリスト
      */
-    public List<Category> list(int offset, int pageSize, String name, Integer type) {
-        return categoryMapper.list(offset, pageSize, name, type);
+    public List<Category> listPage(int offset, int pageSize, String name, Integer type) {
+        return categoryMapper.listPage(offset, pageSize, name, type);
     }
     
     
@@ -84,6 +84,15 @@ public class CategoryServiceImpl implements CategoryService {
      */
     public void delete(Long id) {
         categoryMapper.delete(id);
+    }
+    
+    /**
+     * カテゴリーリストを取得
+     *
+     * @return カテゴリーリスト
+     */
+    public List<Category> listAll(Integer type) {
+        return categoryMapper.listAll(type);
     }
     
     

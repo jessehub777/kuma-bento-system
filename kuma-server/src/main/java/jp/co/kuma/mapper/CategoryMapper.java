@@ -23,7 +23,7 @@ public interface CategoryMapper {
      * @param type     タイプでフィルタリング
      * @return カテゴリーリスト
      */
-    List<Category> list(@Param("offset") int offset, @Param("pageSize") int pageSize, @Param("name") String name, @Param("type") Integer type);
+    List<Category> listPage(@Param("offset") int offset, @Param("pageSize") int pageSize, @Param("name") String name, @Param("type") Integer type);
     
     int count(@Param("name") String name, @Param("type") Integer type);
     
@@ -52,5 +52,12 @@ public interface CategoryMapper {
      */
     @Delete("DELETE FROM category WHERE id = #{id}")
     void delete(Long id);
+    
+    /**
+     * 有効なカテゴリーリストを取得
+     *
+     * @return 有効なカテゴリーリスト
+     */
+    List<Category> listAll(Integer type);
 }
 

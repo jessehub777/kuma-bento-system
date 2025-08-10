@@ -13,7 +13,7 @@
             </if>
         </where>
     </select>
-    <select id="list" resultType="Category">
+    <select id="listPage" resultType="Category">
         SELECT * FROM category
         <where>
             <if test="name != null and name != ''">
@@ -25,6 +25,17 @@
         </where>
         order by sort
         LIMIT #{offset}, #{pageSize}
+    </select>
+    <select id="listAll" resultType="jp.co.kuma.entity.Category">
+        SELECT *
+        FROM category
+        <where>
+            AND status = 1
+            <if test="type != null">
+                AND type = #{type}
+            </if>
+        </where>
+        ORDER BY sort
     </select>
 
     <update id="update">
