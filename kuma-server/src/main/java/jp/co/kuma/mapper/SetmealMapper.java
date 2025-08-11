@@ -5,6 +5,7 @@ import jp.co.kuma.dto.SetmealPageQueryDTO;
 import jp.co.kuma.entity.Setmeal;
 import jp.co.kuma.enumeration.OperationType;
 import jp.co.kuma.vo.SetmealPageQueryVO;
+import jp.co.kuma.vo.SetmealUserVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -59,4 +60,13 @@ public interface SetmealMapper {
      */
     @Select("select id,category_id,name,price,status,description,image from setmeal where id = #{id}")
     Setmeal getById(Long id);
+    
+    /**
+     * ユーザー側のカテゴリIDでセットリストを取得します
+     *
+     * @param categoryId カテゴリID
+     * @return セットのリスト
+     */
+    @Select("select * from setmeal where status = 1 and category_id = #{categoryId}")
+    List<SetmealUserVO> listAll(Long categoryId);
 }

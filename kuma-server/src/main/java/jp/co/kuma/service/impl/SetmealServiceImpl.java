@@ -10,6 +10,7 @@ import jp.co.kuma.mapper.SetmealDishMapper;
 import jp.co.kuma.mapper.SetmealMapper;
 import jp.co.kuma.service.SetmealService;
 import jp.co.kuma.vo.SetmealPageQueryVO;
+import jp.co.kuma.vo.SetmealUserVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -124,8 +125,28 @@ public class SetmealServiceImpl implements SetmealService {
         Setmeal setmeal = setmealMapper.getById(id);
         SetmealDTO setmealDTO = new SetmealDTO();
         BeanUtils.copyProperties(setmeal, setmealDTO);
-        List<SetmealDish> setmealDishes = setmealDishMapper.getBySetmealId(id);
+        List<SetmealDish> setmealDishes = setmealDishMapper.getDishListBySetmealId(id);
         setmealDTO.setSetmealDishes(setmealDishes);
         return setmealDTO;
+    }
+    
+    /**
+     * カテゴリIDでセットを取得します
+     *
+     * @param categoryId カテゴリID
+     * @return セットのリスト
+     */
+    public List<SetmealUserVO> listAll(Long categoryId) {
+        return setmealMapper.listAll(categoryId);
+    }
+    
+    /**
+     * セットIDでセットに含まれる料理を取得します
+     *
+     * @param setmealId セットID
+     * @return 料理のリスト
+     */
+    public List<SetmealDish> getDishListBySetmealId(Long setmealId) {
+        return setmealDishMapper.getDishListBySetmealId(setmealId);
     }
 }
