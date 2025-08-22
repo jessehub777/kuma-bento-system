@@ -17,7 +17,7 @@ public class ShopController {
     private final ShopService shopService;
     
     /**
-     * 店の営業状態を取得します。
+     * 店の営業状態を取得します。 Redis から
      */
     @GetMapping("/status")
     public Result<String> getStatus() {

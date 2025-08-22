@@ -5,6 +5,7 @@ import jp.co.kuma.service.DishService;
 import jp.co.kuma.vo.DishUserVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,6 +27,7 @@ public class DishController {
      * @return
      */
     @GetMapping("/list")
+    @Cacheable(cacheNames = "dishList", key = "#categoryId")
     public Result<List<DishUserVO>> listAll(@RequestParam Long categoryId) {
         List<DishUserVO> dishes = dishService.listAll(categoryId);
         return Result.success(dishes);
