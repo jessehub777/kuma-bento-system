@@ -26,7 +26,7 @@ public class CategoryController {
      * @return Result<List < CategoryVO>>
      */
     @GetMapping("/list")
-    @Cacheable(cacheNames = "category", key = "#type") // category::1　のような形
+    @Cacheable(cacheNames = "category") // category::1　のような形
     public Result<List<CategoryVO>> listAll(Integer type) {
         List<CategoryVO> categories = categoryService.listAll(type);
         return Result.success(categories);
