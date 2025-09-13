@@ -27,3 +27,6 @@ replay_pid*
 .idea
 *.iml
 
+application-dev.yml
+application-prod.yml
+application-test.yml
