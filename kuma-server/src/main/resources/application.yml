@@ -57,8 +57,9 @@ kuma:
     #　JWTのトークン名を設定する
     user-token-name: token
 
-minio:
-  endpoint: ${minio.endpoint}
-  access-key: ${minio.access-key}
-  secret-key: ${minio.secret-key}
-  bucket: ${minio.bucket}
+s3:
+  endpoint: ${s3.endpoint}
+  access-key: ${s3.access-key}
+  secret-key: ${s3.secret-key}
+  bucket: ${s3.bucket}
+  public-endpoint: ${s3.public-endpoint}

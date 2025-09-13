@@ -1,7 +1,7 @@
 package jp.co.kuma.controller.admin;
 
 import jp.co.kuma.result.Result;
-import jp.co.kuma.utils.MinioUtil;
+import jp.co.kuma.utils.S3Util;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +16,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class CommonController {
     
-    private final MinioUtil minioUtil;
+    private final S3Util s3Util;
     
     /**
      * upload to minio
@@ -28,7 +28,7 @@ public class CommonController {
     public Result<String> upload(MultipartFile file) throws IOException {
         String fileName = UUID.randomUUID() + "-" + file.getOriginalFilename();
         
-        minioUtil.uploadFile(fileName, file.getInputStream(), file.getContentType());
-        return Result.success(minioUtil.getFileUrl(fileName));
+        s3Util.uploadFile(fileName, file.getInputStream(), file.getContentType());
+        return Result.success(s3Util.getFileUrl(fileName));
     }
 }

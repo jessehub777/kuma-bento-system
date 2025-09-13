@@ -141,13 +141,6 @@
                 <version>5.2.5</version>
             </dependency>
 
-            <!-- MinIO -->
-            <dependency>
-                <groupId>io.minio</groupId>
-                <artifactId>minio</artifactId>
-                <version>8.5.7</version>
-            </dependency>
-
             <!-- Jakarta XML Binding -->
             <dependency>
                 <groupId>jakarta.xml.bind</groupId>

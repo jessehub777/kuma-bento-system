@@ -6,10 +6,11 @@ import org.springframework.context.annotation.Configuration;
 
 @Data
 @Configuration
-@ConfigurationProperties(prefix = "minio")
-public class MinioProperties {
+@ConfigurationProperties(prefix = "s3")
+public class S3Properties {
     private String endpoint;
     private String accessKey;
     private String secretKey;
     private String bucket;
+    private String publicEndpoint;
 }
