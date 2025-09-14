@@ -17,9 +17,9 @@ public class OrderSubmitVO implements Serializable {
     // 注文ID
     private Long id;
     // 注文番号
-    private String orderNumber;
+    private String number;
     // 注文金額
-    private BigDecimal orderAmount;
+    private BigDecimal amount;
     // 注文時間
     private LocalDateTime orderTime;
 }

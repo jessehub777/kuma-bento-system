@@ -39,6 +39,9 @@ public class OrderDetail implements Serializable {
     // 数量
     private Integer number;
     
+    // 単価
+    private BigDecimal price;
+    
     // 金額
     private BigDecimal amount;
     

@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
- * 订单
+ * 注文
  */
 @Data
 @Builder
@@ -19,7 +19,14 @@ import java.time.LocalDateTime;
 public class Orders implements Serializable {
     
     /**
-     * 订单状态 1待付款 2待接单 3已接单 4派送中 5已完成 6已取消
+     * 注文タイプ 1店内でお食事 2お持ち帰り 3デリバリー
+     */
+    public static final Integer IN_SHOP = 1;
+    public static final Integer TAKE_OUT = 2;
+    public static final Integer DELIVERY = 3;
+    
+    /**
+     * 注文状態 1未払い 2受付待ち 3受付済み 4 配送中 5完了 6キャンセル済み
      */
     public static final Integer PENDING_PAYMENT = 1;
     public static final Integer TO_BE_CONFIRMED = 2;
@@ -29,7 +36,14 @@ public class Orders implements Serializable {
     public static final Integer CANCELLED = 6;
     
     /**
-     * 支付状态 0未支付 1已支付 2退款
+     * 支払いタイプ  1:カウンター 2:クレジットカード 3:電子マネー
+     */
+    public static final Integer COUNTER = 1;
+    public static final Integer CREDIT = 2;
+    public static final Integer EMONEY = 3;
+    
+    /**
+     * 支払い状態 0未払い  1支払い済み 2返金
      */
     public static final Integer UN_PAID = 0;
     public static final Integer PAID = 1;
@@ -57,8 +71,11 @@ public class Orders implements Serializable {
     // 精算時間
     private LocalDateTime checkoutTime;
     
-    // 支払方法
-    private Integer payMethod;
+    // 注文方法
+    private Integer orderType;
+    
+    // 支払い方法
+    private Integer payType;
     
     // 支払状態 0:未払い 1:支払い済み 2:返金
     private Integer payStatus;
@@ -66,23 +83,20 @@ public class Orders implements Serializable {
     // 実際受領金額
     private BigDecimal amount;
     
+    // テーブル番号
+    private Integer tableNumber;
+    
+    // 食器数量
+    private Integer tablewareNumber;
+    
     // 備考
     private String remark;
     
-    // ユーザー名
-    private String userName;
-    
-    // 電話番号
-    private String phone;
-    
-    // 住所
-    private String address;
+    // 包装費
+    private BigDecimal packAmount;
     
     // 受取人
     private String consignee;
-    
-    // 注文キャンセル理由
-    private String cancelReason;
     
     // 注文拒否理由
     private String rejectionReason;
@@ -90,19 +104,4 @@ public class Orders implements Serializable {
     // 注文キャンセル時間
     private LocalDateTime cancelTime;
     
-    // 配達予定時間
-    private LocalDateTime estimatedDeliveryTime;
-    
-    // 配送状態 1:即時配達 0:指定時間
-    private Integer deliveryStatus;
-    
-    // 配達時間
-    private LocalDateTime deliveryTime;
-    
-    // 包装費
-    private int packAmount;
-    
-    // 食器数量
-    private int tablewareNumber;
-
 }

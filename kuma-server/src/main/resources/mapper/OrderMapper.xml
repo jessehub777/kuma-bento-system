@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jp.co.kuma.mapper.OrderMapper">
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into orders
+        (number, status, user_id, address_book_id, order_time, checkout_time, order_type, pay_type, pay_status, amount,
+         table_number, tableware_number, remark, pack_amount, rejection_reason, consignee, cancel_time)
+        values (#{number}, #{status}, #{userId},
+                #{addressBookId}, #{orderTime}, #{checkoutTime}, #{orderType}, #{payType}, #{payStatus},
+                #{amount}, #{tableNumber}, #{tablewareNumber}, #{remark}, #{packAmount}, #{rejectionReason},
+                #{consignee}, #{cancelTime})
+
+    </insert>
+
+</mapper>

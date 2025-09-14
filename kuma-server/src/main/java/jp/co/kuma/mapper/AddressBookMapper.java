@@ -16,4 +16,13 @@ public interface AddressBookMapper {
      */
     @Select("SELECT * FROM address_book WHERE user_id = #{userId}")
     List<AddressBook> getByUserId(Long userId);
+    
+    /**
+     * id に基づいて アドレス帳 を取得します。
+     *
+     * @param id
+     * @return AddressBook
+     */
+    @Select("SELECT * FROM address_book WHERE id = #{id}")
+    AddressBook getById(Long id);
 }
