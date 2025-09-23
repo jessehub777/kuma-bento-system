@@ -47,7 +47,7 @@ public class OrderServiceImpl implements OrderService {
         BeanUtils.copyProperties(ordersSubmitDTO, orders);
         
         // 注文番号を生成する
-        String number = System.currentTimeMillis() + String.valueOf(userId);
+        String number = System.currentTimeMillis() + "U" + userId;
         orders.setNumber(number);
         
         // 注文タイプ 1店内でお食事 2お持ち帰り 3デリバリー
@@ -64,7 +64,7 @@ public class OrderServiceImpl implements OrderService {
             if (ordersSubmitDTO.getPayType().equals(Orders.COUNTER)) {
                 // 2受付待ち
                 orders.setStatus(Orders.TO_BE_CONFIRMED);
-                // 1支払い済み
+                // 0未払い
                 orders.setPayStatus(Orders.UN_PAID);
             } else if (ordersSubmitDTO.getPayType().equals(Orders.CREDIT)) {
                 // 2受付待ち
@@ -100,11 +100,16 @@ public class OrderServiceImpl implements OrderService {
         orders.setOrderTime(LocalDateTime.now());
         ordersMapper.insert(orders);
         
-        // TODO OrderDetailの中に　明細　を　INSERTする
-        
+        ordersSubmitDTO.getOrderDetails().forEach(item -> {
+            OrderDetail orderDetail = new OrderDetail();
+            BeanUtils.copyProperties(item, orderDetail);
+            orderDetail.setOrderId(orders.getId());
+            orderDetailMapper.insertItem(orderDetail);
+        });
         
         OrderSubmitVO orderSubmitVO = new OrderSubmitVO();
         BeanUtils.copyProperties(orders, orderSubmitVO);
         return orderSubmitVO;
     }
+    
 }
