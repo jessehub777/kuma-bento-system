@@ -26,28 +26,28 @@ public class Orders implements Serializable {
     public static final Integer DELIVERY = 3;
     
     /**
-     * 注文状態 1未払い 2受付待ち 3受付済み 4 配送中 5完了 6キャンセル済み
+     * 注文状態 1払い待ち 2受付待ち 3受付済み 4 配送中 5完了 6キャンセル済み
      */
-    public static final Integer PENDING_PAYMENT = 1;
-    public static final Integer TO_BE_CONFIRMED = 2;
-    public static final Integer CONFIRMED = 3;
-    public static final Integer DELIVERY_IN_PROGRESS = 4;
-    public static final Integer COMPLETED = 5;
-    public static final Integer CANCELLED = 6;
+    public static final Integer ORDER_PENDING_PAYMENT = 1;
+    public static final Integer ORDER_TO_BE_CONFIRMED = 2;
+    public static final Integer ORDER_CONFIRMED = 3;
+    public static final Integer ORDER_DELIVERY_IN_PROGRESS = 4;
+    public static final Integer ORDER_COMPLETED = 5;
+    public static final Integer ORDER_CANCELLED = 6;
     
     /**
      * 支払いタイプ  1:カウンター 2:クレジットカード 3:電子マネー
      */
-    public static final Integer COUNTER = 1;
-    public static final Integer CREDIT = 2;
-    public static final Integer EMONEY = 3;
+    public static final Integer PAY_TYPE_COUNTER = 1;
+    public static final Integer PAY_TYPE_CREDIT = 2;
+    public static final Integer PAY_TYPE_EMONEY = 3;
     
     /**
      * 支払い状態 0未払い  1支払い済み 2返金
      */
-    public static final Integer UN_PAID = 0;
-    public static final Integer PAID = 1;
-    public static final Integer REFUND = 2;
+    public static final Integer PAYMENT_UN_PAID = 0;
+    public static final Integer PAYMENT_PAID = 1;
+    public static final Integer PAYMENT_REFUND = 2;
     
     private static final long serialVersionUID = 1L;
     

@@ -12,4 +12,8 @@ public interface OrderMapper {
      * @return
      */
     void insert(Orders orders);
+    
+    Orders getOrderByNumber(String orderNumber);
+    
+    void updateStatusAndPaystatus(Orders orders);
 }

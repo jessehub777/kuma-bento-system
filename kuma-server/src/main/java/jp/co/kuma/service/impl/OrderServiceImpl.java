@@ -1,6 +1,7 @@
 package jp.co.kuma.service.impl;
 
 import jp.co.kuma.context.BaseContext;
+import jp.co.kuma.dto.OrdersPaymentDTO;
 import jp.co.kuma.dto.OrdersSubmitDTO;
 import jp.co.kuma.entity.*;
 import jp.co.kuma.mapper.*;
@@ -8,6 +9,7 @@ import jp.co.kuma.service.OrderService;
 import jp.co.kuma.vo.OrderSubmitVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,48 +55,14 @@ public class OrderServiceImpl implements OrderService {
         // 注文タイプ 1店内でお食事 2お持ち帰り 3デリバリー
         // 注文状態 1未払い 2受付待ち 3受付済み 4 配送中 5完了 6キャンセル済み
         // 支払い状態 0未払い  1支払い済み 2返金
-        if (ordersSubmitDTO.getOrderType().equals(Orders.IN_SHOP)) {            // 1店内でお食事
-            // 2受付待ち
-            orders.setStatus(Orders.TO_BE_CONFIRMED);
-            //  0未払い
-            orders.setPayStatus(Orders.UN_PAID);
-        } else if (ordersSubmitDTO.getOrderType().equals(Orders.TAKE_OUT)) {    // 2お持ち帰り
-            // 支払いタイプ  1:カウンター 2:クレジットカード 3:電子マネー
-            // デモ用のみで、支払い成功をシミュレーションします
-            if (ordersSubmitDTO.getPayType().equals(Orders.COUNTER)) {
-                // 2受付待ち
-                orders.setStatus(Orders.TO_BE_CONFIRMED);
-                // 0未払い
-                orders.setPayStatus(Orders.UN_PAID);
-            } else if (ordersSubmitDTO.getPayType().equals(Orders.CREDIT)) {
-                // 2受付待ち
-                orders.setStatus(Orders.TO_BE_CONFIRMED);
-                // 1支払い済み
-                orders.setPayStatus(Orders.PAID);
-            } else if (ordersSubmitDTO.getPayType().equals(Orders.EMONEY)) {
-                // 2受付待ち
-                orders.setStatus(Orders.TO_BE_CONFIRMED);
-                // 1支払い済み
-                orders.setPayStatus(Orders.PAID);
-            }
-        } else if (ordersSubmitDTO.getOrderType().equals(Orders.DELIVERY)) {     // 3デリバリー
-            // 支払いタイプ  2:クレジットカード 3:電子マネー
-            // デモ用のみで、支払い成功をシミュレーションします
-            if (ordersSubmitDTO.getPayType().equals(Orders.CREDIT)) {
-                // 2受付待ち
-                orders.setStatus(Orders.TO_BE_CONFIRMED);
-                // 1支払い済み
-                orders.setPayStatus(Orders.PAID);
-            } else if (ordersSubmitDTO.getPayType().equals(Orders.EMONEY)) {
-                // 2受付待ち
-                orders.setStatus(Orders.TO_BE_CONFIRMED);
-                // 1支払い済み
-                orders.setPayStatus(Orders.PAID);
-            }
-            
+        if (ordersSubmitDTO.getOrderType().equals(Orders.DELIVERY)) {     // 3デリバリー
             AddressBook addressBook = addressBookMapper.getById(ordersSubmitDTO.getAddressBookId());
             orders.setConsignee(addressBook.getConsignee());
         }
+        //  0未払い
+        orders.setPayStatus(Orders.PAYMENT_UN_PAID);
+        // 1払い待ち
+        orders.setStatus(Orders.ORDER_PENDING_PAYMENT);
         
         orders.setUserId(userId);
         orders.setOrderTime(LocalDateTime.now());
@@ -110,6 +78,29 @@ public class OrderServiceImpl implements OrderService {
         OrderSubmitVO orderSubmitVO = new OrderSubmitVO();
         BeanUtils.copyProperties(orders, orderSubmitVO);
         return orderSubmitVO;
+    }
+    
+    public void pay(@NotNull OrdersPaymentDTO ordersPaymentDTO) {
+        Orders orders = ordersMapper.getOrderByNumber(ordersPaymentDTO.getOrderNumber());
+        // PayType  1:カウンター 2:クレジットカード 3:電子マネー
+        // デモ用のみで、支払い成功をシミュレーションします
+        if (orders.getPayType().equals(Orders.PAY_TYPE_COUNTER)) {
+            // 2受付待ち
+            orders.setStatus(Orders.ORDER_TO_BE_CONFIRMED);
+            // 0未払い
+            orders.setPayStatus(Orders.PAYMENT_UN_PAID);
+        } else if (orders.getPayType().equals(Orders.PAY_TYPE_CREDIT)) {
+            // 2受付待ち
+            orders.setStatus(Orders.ORDER_TO_BE_CONFIRMED);
+            // 1支払い済み
+            orders.setPayStatus(Orders.PAYMENT_PAID);
+        } else if (orders.getPayType().equals(Orders.PAY_TYPE_EMONEY)) {
+            // 2受付待ち
+            orders.setStatus(Orders.ORDER_TO_BE_CONFIRMED);
+            // 1支払い済み
+            orders.setPayStatus(Orders.PAYMENT_PAID);
+        }
+        ordersMapper.updateStatusAndPaystatus(orders);
     }
     
 }

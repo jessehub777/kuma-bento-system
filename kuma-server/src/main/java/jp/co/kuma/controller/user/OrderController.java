@@ -1,5 +1,6 @@
 package jp.co.kuma.controller.user;
 
+import jp.co.kuma.dto.OrdersPaymentDTO;
 import jp.co.kuma.dto.OrdersSubmitDTO;
 import jp.co.kuma.result.Result;
 import jp.co.kuma.service.OrderService;
@@ -28,5 +29,17 @@ public class OrderController {
     public Result<OrderSubmitVO> submit(@RequestBody OrdersSubmitDTO ordersSubmitDTO) {
         OrderSubmitVO orderSubmitVO = orderService.submit(ordersSubmitDTO);
         return Result.success(orderSubmitVO);
+    }
+    
+    /**
+     * 注文を支払う
+     *
+     * @param ordersPaymentDTO
+     * @return
+     */
+    @PostMapping("/pay")
+    public Result pay(@RequestBody OrdersPaymentDTO ordersPaymentDTO) {
+        orderService.pay(ordersPaymentDTO);
+        return Result.success();
     }
 }

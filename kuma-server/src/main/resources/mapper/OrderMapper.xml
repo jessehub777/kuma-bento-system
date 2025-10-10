@@ -13,5 +13,16 @@
                 #{consignee}, #{cancelTime})
 
     </insert>
+    <update id="updateStatusAndPaystatus">
+        update orders
+        set status     = #{status},
+            pay_status = #{payStatus}
+        where number = #{number}
+    </update>
+    <select id="getOrderByNumber" resultType="jp.co.kuma.entity.Orders">
+        select number, pay_type, pay_status, amount
+        from orders
+        where number = #{number}
+    </select>
 
 </mapper>

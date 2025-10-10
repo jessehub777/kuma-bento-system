@@ -9,7 +9,4 @@ public class OrdersPaymentDTO implements Serializable {
     // 注文番号
     private String orderNumber;
     
-    // 支払方法
-    private Integer payMethod;
-    
 }
