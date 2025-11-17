@@ -25,4 +25,32 @@
         where number = #{number}
     </select>
 
+    <select id="listByCondition" resultType="jp.co.kuma.entity.Orders">
+        select id, number, status, user_id, address_book_id, order_time, checkout_time,
+               order_type, pay_type, pay_status, amount, table_number, tableware_number,
+               remark, pack_amount, rejection_reason, consignee, cancel_time
+        from orders
+        <where>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="number != null and number != ''">
+                and number = #{number}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="beginTime != null">
+                and order_time &gt;= #{beginTime}
+            </if>
+            <if test="endTime != null">
+                and order_time &lt;= #{endTime}
+            </if>
+        </where>
+        order by order_time desc
+        <if test="pageSize &gt; 0">
+            limit #{pageSize} offset #{page}
+        </if>
+    </select>
+
 </mapper>

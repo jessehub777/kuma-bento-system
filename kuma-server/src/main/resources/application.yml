@@ -7,10 +7,10 @@ spring:
   main:
     allow-circular-references: true
   datasource:
-    url: jdbc:mysql://${kuma.datasource.host}:${kuma.datasource.port}/${kuma.datasource.database}?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Tokyo
-    username: ${kuma.datasource.username}
-    password: ${kuma.datasource.password}
-    driver-class-name: ${kuma.datasource.driver-class-name}
+    url: jdbc:mysql://${rds.datasource.host}:${rds.datasource.port}/${rds.datasource.database}?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Tokyo
+    username: ${rds.datasource.username}
+    password: ${rds.datasource.password}
+    driver-class-name: ${rds.datasource.driver-class-name}
     hikari:
       maximum-pool-size: 20
       minimum-idle: 5

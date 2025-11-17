@@ -1,0 +1,23 @@
+# Maven build outputs
+**/target/
+**/.mvn/
+
+# IDE & tooling
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# Git & temporary files
+.git/
+.gitignore
+.DS_Store
+logs/
+tmp/
+*.log
+
+# OS / tooling clutter
+Thumbs.db
+.env
+

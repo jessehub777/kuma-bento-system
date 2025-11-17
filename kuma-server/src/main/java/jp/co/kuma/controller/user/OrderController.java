@@ -1,5 +1,6 @@
 package jp.co.kuma.controller.user;
 
+import jp.co.kuma.dto.OrdersPageQueryDTO;
 import jp.co.kuma.dto.OrdersPaymentDTO;
 import jp.co.kuma.dto.OrdersSubmitDTO;
 import jp.co.kuma.result.Result;
@@ -7,10 +8,10 @@ import jp.co.kuma.service.OrderService;
 import jp.co.kuma.vo.OrderSubmitVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import jp.co.kuma.entity.Orders;
 
 @RestController("userOrderController")
 @RequestMapping("/user/order")
@@ -41,5 +42,14 @@ public class OrderController {
     public Result pay(@RequestBody OrdersPaymentDTO ordersPaymentDTO) {
         orderService.pay(ordersPaymentDTO);
         return Result.success();
+    }
+    
+    /**
+     * 注文リストを取得
+     */
+    @GetMapping("/list")
+    public Result<List<Orders>> getOrderList(OrdersPageQueryDTO ordersPageQueryDTO) {
+        List<Orders> orders = orderService.getOrderList(ordersPageQueryDTO);
+        return Result.success(orders);
     }
 }

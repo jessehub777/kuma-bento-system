@@ -1,6 +1,7 @@
 package jp.co.kuma.service.impl;
 
 import jp.co.kuma.context.BaseContext;
+import jp.co.kuma.dto.OrdersPageQueryDTO;
 import jp.co.kuma.dto.OrdersPaymentDTO;
 import jp.co.kuma.dto.OrdersSubmitDTO;
 import jp.co.kuma.entity.*;
@@ -9,13 +10,13 @@ import jp.co.kuma.service.OrderService;
 import jp.co.kuma.vo.OrderSubmitVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -80,7 +81,7 @@ public class OrderServiceImpl implements OrderService {
         return orderSubmitVO;
     }
     
-    public void pay(@NotNull OrdersPaymentDTO ordersPaymentDTO) {
+    public void pay(OrdersPaymentDTO ordersPaymentDTO) {
         Orders orders = ordersMapper.getOrderByNumber(ordersPaymentDTO.getOrderNumber());
         // PayType  1:カウンター 2:クレジットカード 3:電子マネー
         // デモ用のみで、支払い成功をシミュレーションします
@@ -103,4 +104,13 @@ public class OrderServiceImpl implements OrderService {
         ordersMapper.updateStatusAndPaystatus(orders);
     }
     
+    @Override
+    public List<Orders> getOrderList(OrdersPageQueryDTO ordersPageQueryDTO) {
+        ordersPageQueryDTO.setUserId(BaseContext.getCurrentId());
+        int pageNum = Math.max(ordersPageQueryDTO.getPage(), 1);
+        int pageSize = Math.max(ordersPageQueryDTO.getPageSize(), 10);
+        ordersPageQueryDTO.setPage((pageNum - 1) * pageSize);
+        ordersPageQueryDTO.setPageSize(pageSize);
+         return ordersMapper.listByCondition(ordersPageQueryDTO);
+     }
 }
